@@ -5,22 +5,25 @@ from prepair_mamo import prepair_mamo
 from prepais_equip import prepair_equipment
 
 
-ibge = diag = pd.read_csv('ibge_municipios.csv', sep=';')
+ibge = diag = pd.read_csv('data/ibge_municipios.csv', sep=';')
 ibge = ibge.query('UF == 29')
 ibge['Mun.Cod.'] = pd.to_numeric(
     ibge["Código Município Completo"].astype(str).str[:-1])
 ibge = ibge.set_index("Mun.Cod.")
 ibge = ibge[["Nome_Município", "Código Município Completo"]]
 
-equipMamo2018 = prepair_equipment('equipamentos_mamografos_2018.csv', '2018')
-print(equipMamo2018)
-mamo2018 = prepair_mamo('mamografias_2018-2021.csv', '2018')
-diag2018 = prepair_diag('mamografias_diagnostico_cancer_2018-2021.csv', '2018')
+equipMamo2018 = prepair_equipment(
+    'data/equipamentos_mamografos_2018.csv', '2018')
+mamo2018 = prepair_mamo('data/mamografias_2018-2021.csv', '2018')
+diag2018 = prepair_diag(
+    'data/mamografias_diagnostico_cancer_2018-2021.csv', '2018')
 frames2018 = [ibge, equipMamo2018, mamo2018, diag2018]
 
-equipMamo2019 = prepair_equipment('equipamentos_mamografos_2019.csv', '2019')
-mamo2019 = prepair_mamo('mamografias_2018-2021.csv', '2019')
-diag2019 = prepair_diag('mamografias_diagnostico_cancer_2018-2021.csv', '2019')
+equipMamo2019 = prepair_equipment(
+    'data/equipamentos_mamografos_2019.csv', '2019')
+mamo2019 = prepair_mamo('data/mamografias_2018-2021.csv', '2019')
+diag2019 = prepair_diag(
+    'data/mamografias_diagnostico_cancer_2018-2021.csv', '2019')
 frames2019 = [ibge, equipMamo2019, mamo2019, diag2019]
 
 data2018 = ft.reduce(lambda left, right: pd.merge(
