@@ -35,7 +35,7 @@ data2019 = ft.reduce(lambda left, right: pd.merge(
     left, right, how="outer", on="Mun.Cod."), frames2019)
 
 
-with pd.ExcelWriter("equipMamo.xlsx") as writer:
+with pd.ExcelWriter("dataAnalysisMamoBrBA_VYR.xlsx") as writer:
     try:
         data2018.to_excel(writer, sheet_name="2018")
         data2019.to_excel(writer, sheet_name="2019")
