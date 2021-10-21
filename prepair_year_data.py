@@ -10,15 +10,16 @@ from prepais_equip import prepair_equipment
 def prepair_year_data(year, lastMonth):
     ibge = prepair_ibge_cities()
     equip = prepair_equipment(year, lastMonth)
-    mamo = prepair_mamo(year)
+    mamoBl = prepair_mamo(year, 'mamoBl')
+    mamoDg = prepair_mamo(year, 'mamoDg')
     diag = prepair_diag(year)
-    frames = [ibge, equip, mamo, diag]
+    frames = [ibge, equip, mamoBl, mamoDg, diag]
     data = ft.reduce(lambda left, right: pd.merge(
         left, right, how="outer", on="Mun.Cod."), frames)
     data = data.rename(
         columns={"Código Município Completo": "ID IBGE"})
     data = data.reset_index()
-    data = data.iloc[:, [1, 2, 3, 4, 5]]
+    data = data.iloc[:, [1, 2, 3, 4, 5, 6]]
     data = data.set_index('Cidade')
     data = data.replace({NaN: 0})
     return data
