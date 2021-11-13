@@ -12,7 +12,7 @@ def prepair_diag(year):
             0, 6)
         diag = diag.rename(columns={'Munic.de residencia': "Mun.Cod."})
         diag = diag[["Mun.Cod.", year]]
-        diag = diag.rename(columns={year: "Diagnósticos por loca de moradia"})
+        diag = diag.rename(columns={year: "Diagnósticos por local de moradia"})
         diag = diag.set_index('Mun.Cod.')
         diag = diag.drop(index="Total")
         print('-> The File '+file+' was prepared.')
