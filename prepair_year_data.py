@@ -4,7 +4,9 @@ import functools as ft
 from prepair_diag import prepair_diag
 from prepair_ibge_cities import prepair_ibge_cities
 from prepair_mamo import prepair_mamo
+from prepair_parametros_mamografia import prepair_parametros_mamografia
 from prepais_equip import prepair_equipment
+from prepair_mulheres import prepair_mulheres
 
 
 def prepair_year_data(year):
@@ -13,8 +15,11 @@ def prepair_year_data(year):
     mamoBl = prepair_mamo(year, 'mamoBl')
     mamoDg = prepair_mamo(year, 'mamoDg')
     diag = prepair_diag(year)
+    mulhr5069 = prepair_mulheres(year, '5069')
+    parametros = prepair_parametros_mamografia(year)
 
-    frames = [ibge, equip, mamoBl, mamoDg, diag]
+    frames = [ibge, equip, mamoBl, mamoDg,
+              diag, mulhr5069, parametros]
 
     data = ft.reduce(lambda left, right: pd.merge(
         left, right, how="outer", on="Mun.Cod."), frames)
@@ -23,7 +28,8 @@ def prepair_year_data(year):
         columns={"Código Município Completo": "ID IBGE"})
 
     data = data.reset_index()
-    data = data.iloc[:, [1, 2, 3, 4, 5, 6]]
+    data = data.iloc[:, [1, 2, 3, 4, 5, 6, 7, 8, 9]]
     data = data.set_index('Cidade')
     data = data.replace({NaN: 0})
+
     return data

@@ -9,7 +9,7 @@ data2019 = prepair_year_data('2019')
 data2020 = prepair_year_data('2020')
 data2021 = prepair_year_data('2021')
 
-with pd.ExcelWriter("dataAnalysisMamoBrBA_VYR.xlsx") as writer:
+with pd.ExcelWriter("dataAnalysisMamoBrBA_VYR.xlsx", options={'encoding': 'utf-8'}) as writer:
     try:
         data2017.to_excel(writer, sheet_name="2017")
         data2018.to_excel(writer, sheet_name="2018")
